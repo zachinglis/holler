@@ -1,0 +1,344 @@
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000171)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000122)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.060844)[0m   [0;1mCREATE DATABASE `holler_development` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000121)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'holler_development.schema_migrations' doesn't exist: SELECT version FROM schema_migrations[0m
+  [4;35;1mStatus Columns (0.000000)[0m   [0mMysql::Error: #42S02Table 'holler_development.statuses' doesn't exist: SHOW FIELDS FROM `statuses`[0m
+  [4;36;1mUser Columns (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'holler_development.users' doesn't exist: SHOW FIELDS FROM `users`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000148)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000121)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000148)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000387)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.337472)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.243228)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.000641)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.000557)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000255)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (20080622041126)
+  [4;36;1mSQL (0.000246)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000541)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.003388)[0m   [0;1mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.162248)[0m   [0mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;36;1mSQL (0.027226)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080622041126')[0m
+Migrating to CreateStatuses (20080622042242)
+  [4;35;1mSQL (0.000426)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.003353)[0m   [0;1mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` int(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.000858)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080622042242')[0m
+  [4;36;1mSQL (0.000444)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000604)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.002743)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.002164)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001153)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.056351)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.003032)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.001274)[0m   [0mSHOW KEYS FROM `users`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000148)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000313)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mStatus Columns (0.011802)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+  [4;36;1mUser Columns (0.003593)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000149)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000433)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000290)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000326)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000376)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.001850)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.001649)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.000781)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.002311)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.002320)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.000795)[0m   [0mSHOW KEYS FROM `users`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000196)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000118)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000140)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000118)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000649)[0m   [0;1mCREATE DATABASE `holler_production` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`[0m
+  [4;35;1mSQL (0.000165)[0m   [0mSET NAMES 'utf8'[0m
+  [4;36;1mSQL (0.000123)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.000519)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000149)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000119)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000426)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000286)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000324)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000374)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.011434)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.002620)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001313)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.003045)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.003058)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.001195)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000164)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000131)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.266554)[0m   [0;1mDROP DATABASE IF EXISTS `holler_test`[0m
+  [4;35;1mSQL (0.048431)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;36;1mSQL (0.000157)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000119)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000941)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.041871)[0m   [0mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` bigint(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000639)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.048099)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.040894)[0m   [0;1mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;35;1mSQL (0.000673)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.001975)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.006525)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.000822)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000706)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.000855)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622042242')[0m
+  [4;35;1mSQL (0.001003)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20080622041126')[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000119)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000430)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000291)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000383)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000440)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.011435)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.002779)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001524)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.002095)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.002253)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.001021)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000138)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000118)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.054840)[0m   [0;1mDROP DATABASE IF EXISTS `holler_test`[0m
+  [4;35;1mSQL (0.000757)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;36;1mSQL (0.000192)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000165)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000397)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002535)[0m   [0mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` bigint(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000601)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.003326)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.007997)[0m   [0;1mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;35;1mSQL (0.000864)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.002100)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.006685)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.000638)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000592)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.000675)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622042242')[0m
+  [4;35;1mSQL (0.000650)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20080622041126')[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000148)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000121)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000472)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000289)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000312)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000401)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.011386)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.003556)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001123)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.003206)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.003371)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.001345)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000219)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000123)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.005684)[0m   [0;1mDROP DATABASE IF EXISTS `holler_test`[0m
+  [4;35;1mSQL (0.000750)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;36;1mSQL (0.000186)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000201)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000469)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002491)[0m   [0mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` bigint(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000502)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002577)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.029763)[0m   [0;1mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;35;1mSQL (0.000849)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.002519)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.007278)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.000688)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000579)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.000701)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622042242')[0m
+  [4;35;1mSQL (0.000687)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20080622041126')[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000149)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000449)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000294)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000325)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000446)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.011797)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.002355)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001168)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.003150)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.003127)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.001212)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000193)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000165)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.036954)[0m   [0;1mDROP DATABASE IF EXISTS `holler_test`[0m
+  [4;35;1mSQL (0.000629)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;36;1mSQL (0.000190)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000163)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000365)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002307)[0m   [0mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` bigint(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000379)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.026827)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.007684)[0m   [0;1mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;35;1mSQL (0.000630)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.002451)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.006067)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.000822)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000709)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.000762)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622042242')[0m
+  [4;35;1mSQL (0.000656)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20080622041126')[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000121)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mUser Load (0.000805)[0m   [0;1mSELECT * FROM `users` LIMIT 1[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000139)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000148)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000428)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000324)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000358)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000422)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.011982)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.002144)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001653)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.002175)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.002313)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.000821)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000139)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000119)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.036844)[0m   [0;1mDROP DATABASE IF EXISTS `holler_test`[0m
+  [4;35;1mSQL (0.000659)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;36;1mSQL (0.000161)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000118)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000377)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002176)[0m   [0mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` bigint(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000352)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002200)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.005993)[0m   [0;1mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;35;1mSQL (0.000752)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.002186)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.005688)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.000716)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000534)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.000649)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622042242')[0m
+  [4;35;1mSQL (0.000728)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20080622041126')[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000149)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000120)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mUser Load (0.000873)[0m   [0;1mSELECT * FROM `users` LIMIT 1[0m
+  [4;35;1mUser Columns (0.013025)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mStatus Load (0.000707)[0m   [0;1mSELECT * FROM `statuses` WHERE (`statuses`.user_id = 1) [0m
+  [4;35;1mStatus Columns (0.012267)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000124)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mStatus Load (0.000503)[0m   [0;1mSELECT * FROM `statuses` LIMIT 1[0m
+  [4;35;1mStatus Columns (0.012448)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+  [4;36;1mTagging Columns (0.000000)[0m   [0;1mMysql::Error: #42S02Table 'holler_development.taggings' doesn't exist: SHOW FIELDS FROM `taggings`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000122)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000434)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000359)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000217)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (20080622041126)
+  [4;35;1mSQL (0.000211)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStatuses (20080622042242)
+  [4;36;1mSQL (0.000209)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to ActsAsTaggableMigration (20080622044010)
+  [4;35;1mSQL (0.000208)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.001856)[0m   [0;1mCREATE TABLE `tags` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255) DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.086713)[0m   [0mCREATE TABLE `taggings` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `tag_id` int(11) DEFAULT NULL NULL, `taggable_id` int(11) DEFAULT NULL NULL, `taggable_type` varchar(255) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.007097)[0m   [0;1mCREATE INDEX `index_taggings_on_tag_id` ON `taggings` (`tag_id`)[0m
+  [4;35;1mSQL (0.007191)[0m   [0mCREATE INDEX `index_taggings_on_taggable_id_and_taggable_type` ON `taggings` (`taggable_id`, `taggable_type`)[0m
+  [4;36;1mSQL (0.000978)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080622044010')[0m
+  [4;35;1mSQL (0.000430)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000468)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.001956)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+  [4;36;1mSQL (0.001756)[0m   [0;1mdescribe `statuses`[0m
+  [4;35;1mSQL (0.000799)[0m   [0mSHOW KEYS FROM `statuses`[0m
+  [4;36;1mSQL (0.001830)[0m   [0;1mSHOW FIELDS FROM `taggings`[0m
+  [4;35;1mSQL (0.001643)[0m   [0mdescribe `taggings`[0m
+  [4;36;1mSQL (0.000904)[0m   [0;1mSHOW KEYS FROM `taggings`[0m
+  [4;35;1mSQL (0.001787)[0m   [0mSHOW FIELDS FROM `tags`[0m
+  [4;36;1mSQL (0.002163)[0m   [0;1mdescribe `tags`[0m
+  [4;35;1mSQL (0.000796)[0m   [0mSHOW KEYS FROM `tags`[0m
+  [4;36;1mSQL (0.002261)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (0.002967)[0m   [0mdescribe `users`[0m
+  [4;36;1mSQL (0.000830)[0m   [0;1mSHOW KEYS FROM `users`[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000149)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000162)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000136)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000103)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000450)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000285)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000383)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000398)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.009605)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+  [4;35;1mSQL (0.001855)[0m   [0mdescribe `statuses`[0m
+  [4;36;1mSQL (0.001309)[0m   [0;1mSHOW KEYS FROM `statuses`[0m
+  [4;35;1mSQL (0.001530)[0m   [0mSHOW FIELDS FROM `taggings`[0m
+  [4;36;1mSQL (0.002058)[0m   [0;1mdescribe `taggings`[0m
+  [4;35;1mSQL (0.001664)[0m   [0mSHOW KEYS FROM `taggings`[0m
+  [4;36;1mSQL (0.001911)[0m   [0;1mSHOW FIELDS FROM `tags`[0m
+  [4;35;1mSQL (0.001710)[0m   [0mdescribe `tags`[0m
+  [4;36;1mSQL (0.001572)[0m   [0;1mSHOW KEYS FROM `tags`[0m
+  [4;35;1mSQL (0.002492)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.002309)[0m   [0;1mdescribe `users`[0m
+  [4;35;1mSQL (0.001690)[0m   [0mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.000124)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.045675)[0m   [0;1mDROP DATABASE IF EXISTS `holler_test`[0m
+  [4;35;1mSQL (0.000528)[0m   [0mCREATE DATABASE `holler_test` DEFAULT CHARACTER SET `utf8`[0m
+  [4;36;1mSQL (0.000238)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000107)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000507)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.001628)[0m   [0mCREATE TABLE `statuses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `message` text DEFAULT NULL NULL, `user_id` bigint(11) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000462)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.001811)[0m   [0mCREATE TABLE `taggings` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `tag_id` bigint(11) DEFAULT NULL NULL, `taggable_id` bigint(11) DEFAULT NULL NULL, `taggable_type` varchar(255) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.003870)[0m   [0;1mCREATE INDEX `index_taggings_on_tag_id` ON `taggings` (`tag_id`)[0m
+  [4;35;1mSQL (0.004766)[0m   [0mCREATE INDEX `index_taggings_on_taggable_id_and_taggable_type` ON `taggings` (`taggable_id`, `taggable_type`)[0m
+  [4;36;1mSQL (0.000467)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.002090)[0m   [0mCREATE TABLE `tags` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255) DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.000430)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.001823)[0m   [0mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(40) DEFAULT NULL NULL, `name` varchar(100) DEFAULT '' NULL, `email` varchar(100) DEFAULT NULL NULL, `crypted_password` varchar(40) DEFAULT NULL NULL, `salt` varchar(40) DEFAULT NULL NULL, `created_at` datetime DEFAULT NULL NULL, `updated_at` datetime DEFAULT NULL NULL, `remember_token` varchar(40) DEFAULT NULL NULL, `remember_token_expires_at` datetime DEFAULT NULL NULL, `activation_code` varchar(40) DEFAULT NULL NULL, `activated_at` datetime DEFAULT NULL NULL, `state` varchar(255) DEFAULT 'passive' NULL, `deleted_at` datetime DEFAULT NULL NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.004774)[0m   [0;1mCREATE UNIQUE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [4;35;1mSQL (0.000448)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.001541)[0m   [0;1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.003797)[0m   [0mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;36;1mSQL (0.000462)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.000367)[0m   [0mSELECT version FROM `schema_migrations`[0m
+  [4;36;1mSQL (0.000490)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622044010')[0m
+  [4;35;1mSQL (0.000688)[0m   [0mINSERT INTO `schema_migrations` (version) VALUES ('20080622041126')[0m
+  [4;36;1mSQL (0.000410)[0m   [0;1mINSERT INTO `schema_migrations` (version) VALUES ('20080622042242')[0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000152)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000121)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mStatus Load (0.000522)[0m   [0;1mSELECT * FROM `statuses` LIMIT 1[0m
+  [4;35;1mStatus Columns (0.011921)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+  [4;36;1mTagging Columns (0.012004)[0m   [0;1mSHOW FIELDS FROM `taggings`[0m
+  [4;35;1mTag Load (0.034673)[0m   [0mSELECT `tags`.* FROM `tags` INNER JOIN taggings ON tags.id = taggings.tag_id WHERE ((`taggings`.taggable_type = 'Status') AND (`taggings`.taggable_id = 308237155)) [0m
+  [4;36;1mSQL (0.000233)[0m   [0;1mBEGIN[0m
+  [4;35;1mTag Columns (0.011883)[0m   [0mSHOW FIELDS FROM `tags`[0m
+  [4;36;1mSQL (0.000204)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000248)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000443)[0m   [0;1mSELECT `name` FROM `tags` WHERE (`tags`.name = 'foo') [0m
+  [4;35;1mTag Create (0.000315)[0m   [0mINSERT INTO `tags` (`name`) VALUES('foo')[0m
+  [4;36;1mTagging Create (0.000302)[0m   [0;1mINSERT INTO `taggings` (`tag_id`, `taggable_type`, `taggable_id`, `created_at`) VALUES(1, 'Status', 308237155, '2008-06-22 04:54:59')[0m
+  [4;35;1mSQL (0.010339)[0m   [0mCOMMIT[0m
+  [4;36;1mTag Load (0.000611)[0m   [0;1mSELECT * FROM `tags` WHERE (`tags`.`name` = 'foo') LIMIT 1[0m
+  [4;35;1mTag Load (0.000599)[0m   [0mSELECT * FROM `tags` WHERE (`tags`.`name` = 'foo') LIMIT 1[0m
+  [4;36;1mUser Load (0.001428)[0m   [0;1mSELECT * FROM `users` LIMIT 1[0m
+  [4;35;1mUser Columns (0.013349)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mStatus Load (0.000788)[0m   [0;1mSELECT * FROM `statuses` WHERE (`statuses`.user_id = 1) [0m
+WARNING: You're using the Ruby-based MySQL library that ships with Rails. This library is not suited for production. Please install the C-based MySQL library instead (gem install mysql).
+  [4;36;1mSQL (0.000150)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000122)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
