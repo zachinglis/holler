@@ -1,3 +1,4 @@
+= render :partial => "statuses/new"
 %ul
   - @statuses.sort.reverse.each do |date, statuses|
     %li
@@ -5,7 +6,7 @@
         %a{:id => date, :title => statuses.first.created_at.pretty_date}= today_tomorow_or_day statuses.first.created_at
       %ul#users
         - statuses.group_by(&:user).each do |user, statuses|
-          %li.user
+          %li.user{:class => user_class(user, current_user)}
             .avatar= gravatar_for user
             %h3= user.name
             %ul#statuses

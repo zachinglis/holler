@@ -11,4 +11,5 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   
   include RubyExtensions
+  
 end

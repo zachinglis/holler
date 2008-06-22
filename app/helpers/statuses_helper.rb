@@ -9,4 +9,8 @@ module StatusesHelper
       time.strftime("%A")
     end
   end
+  
+  def user_class(user, current_user)
+    "highlight" if user == current_user
+  end
 end

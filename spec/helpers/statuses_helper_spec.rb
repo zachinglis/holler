@@ -17,4 +17,15 @@ describe StatusesHelper do
     end
   end
 
+  describe ".user_class" do
+    it "should return 'higlight' if user is the current_user" do
+      user, current_user = users(:quentin), users(:quentin)
+      user_class(user, current_user).should eql('highlight')
+    end
+    
+    it "should return nothing if user is not the current_user" do
+      user, current_user = users(:aaron), users(:quentin)
+      user_class(user, current_user).should be_nil
+    end
+  end
 end

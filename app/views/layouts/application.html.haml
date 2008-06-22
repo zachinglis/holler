@@ -3,7 +3,8 @@
     %title Holler
     = stylesheet_link_tag 'reset', 'holler'
   %body
-    #flash=flash[:notice]
     #header
       = render :partial => "users/user_bar"
+    - if flash[:notice]
+      #flash=flash[:notice]
     #content= yield
