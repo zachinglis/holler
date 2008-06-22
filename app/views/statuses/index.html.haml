@@ -6,6 +6,7 @@
       %ul#users
         - statuses.group_by(&:user).each do |user, statuses|
           %li.user
+            .avatar= gravatar_for user
             %h3= user.name
             %ul#statuses
               = render :partial => statuses

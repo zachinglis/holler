@@ -4,4 +4,3 @@ h1. Todo
 * Look into auto_tags
 * Statuses.xml
 * Remove login from users
-* Gravatar
