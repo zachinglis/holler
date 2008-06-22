@@ -1,4 +1,3 @@
-%h2 Statuses
 %ul
   - @statuses.sort.reverse.each do |date, statuses|
     %li
@@ -8,7 +7,4 @@
           %li
             %h3= user.name
             %ul
-              - statuses.each do |status|
-                %li
-                  = status.message
-                  %small=status.created_at.strftime("%I:%M%p")
+              = render :partial => statuses

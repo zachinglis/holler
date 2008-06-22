@@ -1,0 +1,17 @@
+html, body {
+  font-family: "Helvetica Neue", Helvetica, "Lucida Grande", "Lucida Sans", Verdana, sans-serif; }
+
+#header {
+  background: #561616;
+  font-size: 11px;
+  color: #fff;
+  padding-top: 7px;
+  height: 20px; }
+  #header #user_bar {
+    float: right;
+    padding-right: 20px; }
+    #header #user_bar a {
+      color: #fff; }
+
+#content {
+  padding: 10px; }
