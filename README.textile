@@ -1,0 +1,3 @@
+h1. Holler
+
+A project inspired by 37signal's "In/Out":http://www.37signals.com/svn/posts/976-a-peek-at-inout-an-internal-app-at-37signals and "Shout":http://davidsmalley.com/2008/4/21/shout-at-a-glance-status but with a few extra features.
