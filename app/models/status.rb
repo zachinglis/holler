@@ -16,6 +16,7 @@ class Status < ActiveRecord::Base
   belongs_to :user
   
   named_scope :today, lambda { { :conditions => ['created_at > ?', 1.day.ago.midnight] } }
+  named_scope :since, lambda { |date| { :conditions => ['created_at > ?', date] } }
   
   alias_attribute :to_s, :message
 end

@@ -1,7 +1,7 @@
 %ul
   - @statuses.sort.reverse.each do |date, statuses|
     %li
-      %h3= date
+      %h3= today_tomorow_or_day statuses.first.created_at
       %ul
         - statuses.group_by(&:user).each do |user, statuses|
           %li
