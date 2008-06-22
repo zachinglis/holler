@@ -1,10 +1,6 @@
 # -*- coding: mule-utf-8 -*-
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# Be sure to include AuthenticatedTestHelper in spec/spec_helper.rb instead.
-# Then, you can remove it from this and the functional test.
-include AuthenticatedTestHelper
-
 describe User do
   fixtures :users
 
@@ -255,31 +251,6 @@ describe User do
     users(:quentin).should be_deleted
   end
 
-  describe "being unsuspended" do
-    fixtures :users
-
-    before do
-      @user = users(:quentin)
-      @user.suspend!
-    end
-    
-    it 'reverts to active state' do
-      @user.unsuspend!
-      @user.should be_active
-    end
-    
-    it 'reverts to passive state if activation_code and activated_at are nil' do
-      User.update_all :activation_code => nil, :activated_at => nil
-      @user.reload.unsuspend!
-      @user.should be_passive
-    end
-    
-    it 'reverts to pending state if activation_code is set and activated_at is nil' do
-      User.update_all :activation_code => 'foo-bar', :activated_at => nil
-      @user.reload.unsuspend!
-      @user.should be_pending
-    end
-  end
 
 protected
   def create_user(options = {})
