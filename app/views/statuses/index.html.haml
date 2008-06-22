@@ -8,5 +8,7 @@
           %li
             %h3= user.name
             %ul
-              - statuses.each do |status|
-                %li= status.message
+              - statuses.sort_by(&:created_at).reverse.each do |status|
+                %li
+                  = status.message
+                  %small=status.created_at.strftime("%I:%M%p")
