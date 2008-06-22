@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   
   has_many  :statuses, :dependent => :nullify
   has_one   :current_status, :class_name => "Status", :order => "created_at", :dependent => :nullify
+  
+  alias_attribute :to_s, :name
 
 # Restful Authentication
 

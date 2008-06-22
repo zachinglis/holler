@@ -1,3 +1,8 @@
 %h2 Statuses
-/ # - @statuses.each do |status|
-  
+%ul
+  - @users.each do |user|
+    %li
+      = user
+      %ul
+        - user.statuses.today.each do |status|
+          %li= status
