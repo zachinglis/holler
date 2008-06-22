@@ -19,6 +19,7 @@ specing_foo:
 playing_with_jquery:
   message: Playing with jQuery
   user_id: 1
+  created_at: <%= 1.day.ago %>
 
 designing_ui_for_holler:
   message: Designing the UI for holler

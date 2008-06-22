@@ -1,8 +1,12 @@
 %h2 Statuses
 %ul
-  - @users.each do |user|
+  - @statuses.sort.each do |date, statuses|
     %li
-      = user
+      %h3= date
       %ul
-        - user.statuses.today.each do |status|
-          %li= status
+        - statuses.group_by(&:user).each do |user, statuses|
+          %li
+            %h3= user.name
+            %ul
+              - statuses.each do |status|
+                %li= status.message
