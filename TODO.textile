@@ -1,5 +1,4 @@
 h1. Todo
 
-* Create tags for statuses
 * Style up UI
 * Look into auto_tags

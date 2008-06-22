@@ -1,19 +1,19 @@
-good:
+rspec:
   id: 1
-  name: Very good
+  name: rspec
   
-bad:
+javascript:
   id: 2
-  name: Bad
+  name: js
   
-nature:
+design:
   id: 3
-  name: Nature
+  name: design
   
-question:
+frontend:
   id: 4
-  name: Question
+  name: frontend
   
-animal:
+holler:
   id: 5
-  name: Crazy animal
+  name: holler
