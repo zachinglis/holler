@@ -1,5 +1,6 @@
 %li
-  %small
-    = time_ago_in_words(status.created_at).gsub(/about /,'')
-    ago
-  = status.message  
+  - if status.created_at > 1.day.ago
+    %small
+      = time_ago_in_words(status.created_at).gsub(/about /,'')
+      ago
+  = status.message
