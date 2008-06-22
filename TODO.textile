@@ -1,4 +1,6 @@
 h1. Todo
 
 * Style up UI
+* * Highlight if is my own status
 * Look into auto_tags
+* Statuses.xml

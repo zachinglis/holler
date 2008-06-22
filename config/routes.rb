@@ -1,13 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   
-# Named Routes
-
-  map.register  '/register',  :controller => 'users',     :action => 'create'
-  map.signup    '/signup',    :controller => 'users',     :action => 'new' 
-  map.login     '/login',     :controller => 'sessions',  :action => 'new' 
-  map.logout    '/logout',    :controller => 'sessions',  :action => 'destroy'
-  
-
 # Resources  
   map.resources :statuses
   map.resources :users, :member => { :suspend   => :put,
@@ -16,5 +8,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :session
 
   map.root      :statuses
+
+# Named Routes
+
+  map.register  '/register',  :controller => 'users',     :action => 'create'
+  map.signup    '/signup',    :controller => 'users',     :action => 'new' 
+  map.login     '/login',     :controller => 'sessions',  :action => 'new' 
+  map.logout    '/logout',    :controller => 'sessions',  :action => 'destroy'
+
 
 end
