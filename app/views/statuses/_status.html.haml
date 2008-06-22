@@ -1,3 +1,5 @@
 %li
-  = status.message
-  %small=status.created_at.strftime("%I:%M%p")
+  %small
+    = time_ago_in_words(status.created_at).gsub(/about /,'')
+    ago
+  = status.message  

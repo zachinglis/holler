@@ -1,10 +1,11 @@
 %ul
   - @statuses.sort.reverse.each do |date, statuses|
     %li
-      %h3= today_tomorow_or_day statuses.first.created_at
-      %ul
+      %h2
+        %a{:id => date, :title => statuses.first.created_at.pretty_date}= today_tomorow_or_day statuses.first.created_at
+      %ul#users
         - statuses.group_by(&:user).each do |user, statuses|
-          %li
+          %li.user
             %h3= user.name
-            %ul
+            %ul#statuses
               = render :partial => statuses
