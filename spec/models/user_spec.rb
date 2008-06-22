@@ -17,16 +17,10 @@ describe User do
       @creating_user.should change(User, :count).by(1)
     end
 
-    it 'initializes #activation_code' do
+    it 'starts in active state' do
       @creating_user.call
       @user.reload
-      @user.activation_code.should_not be_nil
-    end
-
-    it 'starts in pending state' do
-      @creating_user.call
-      @user.reload
-      @user.should be_pending
+      @user.should be_active
     end
   end
 
@@ -226,12 +220,9 @@ describe User do
     users(:quentin).remember_token_expires_at.between?(before, after).should be_true
   end
 
-  it 'registers passive user' do
-    user = create_user(:password => nil, :password_confirmation => nil)
-    user.should be_passive
-    user.update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    user.register!
-    user.should be_pending
+  it 'registers active user' do
+    user = create_user
+    user.should be_active
   end
 
   it 'suspends user' do
@@ -255,7 +246,7 @@ describe User do
 protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
-    record.register! if record.valid?
+    record.save
     record
   end
 end

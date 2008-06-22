@@ -9,17 +9,13 @@ module Authorization
       recipient.class_eval do
         include StatefulRolesInstanceMethods
         
-        acts_as_state_machine :initial => :pending
+        acts_as_state_machine :initial => :active
         state :passive
         state :pending, :enter => :make_activation_code
         state :active,  :enter => :do_activate
         state :suspended
         state :deleted, :enter => :do_delete
 
-        event :register do
-          transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
-        end
-        
         event :activate do
           transitions :from => :pending, :to => :active 
         end

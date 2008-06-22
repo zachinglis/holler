@@ -4,3 +4,4 @@ h1. Todo
 * * Highlight if is my own status
 * Look into auto_tags
 * Statuses.xml
+* Remove login from users
