@@ -7278,3 +7278,54 @@ Rendering statuses/index
   [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
   [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
 Completed in 0.12258 (8 reqs/sec) | Rendering: 0.00584 (4%) | DB: 0.02105 (17%) | 200 OK [http://0.0.0.0/]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2008-06-22 14:30:33) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlMzlhY2IyNTkyMTRhNWM5YzNkYWIxM2Q3OGU3YzA1
+YWQ6DnJldHVybl90bzA6DHVzZXJfaWRpBiIKZmxhc2hJQzonQWN0aW9uQ29u
+dHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--b23dc0abd83454a453a5343e5fa5f1d4aaf2b207
+  Parameters: {"action"=>"index", "controller"=>"statuses"}
+  [4;36;1mUser Columns (0.013340)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.001254)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mStatus Load (0.000740)[0m   [0;1mSELECT * FROM `statuses` ORDER BY created_at DESC[0m
+  [4;35;1mStatus Columns (0.001938)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+Rendering template within layouts/application
+Rendering statuses/index
+  [4;36;1mUser Load (0.001020)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+Completed in 0.04538 (22 reqs/sec) | Rendering: 0.00582 (12%) | DB: 0.02032 (44%) | 200 OK [http://0.0.0.0/]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2008-06-22 14:30:36) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlMzlhY2IyNTkyMTRhNWM5YzNkYWIxM2Q3OGU3YzA1
+YWQ6DnJldHVybl90bzA6DHVzZXJfaWRpBiIKZmxhc2hJQzonQWN0aW9uQ29u
+dHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--b23dc0abd83454a453a5343e5fa5f1d4aaf2b207
+  Parameters: {"action"=>"index", "controller"=>"statuses"}
+  [4;35;1mUser Columns (0.013034)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.001616)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mStatus Load (0.000939)[0m   [0mSELECT * FROM `statuses` ORDER BY created_at ASC[0m
+  [4;36;1mStatus Columns (0.002518)[0m   [0;1mSHOW FIELDS FROM `statuses`[0m
+Rendering template within layouts/application
+Rendering statuses/index
+  [4;35;1mUser Load (0.001419)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+Completed in 0.05590 (17 reqs/sec) | Rendering: 0.00643 (11%) | DB: 0.02251 (40%) | 200 OK [http://0.0.0.0/]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2008-06-22 14:30:46) [GET]
+  Session ID: BAh7CToMY3NyZl9pZCIlMzlhY2IyNTkyMTRhNWM5YzNkYWIxM2Q3OGU3YzA1
+YWQ6DnJldHVybl90bzA6DHVzZXJfaWRpBiIKZmxhc2hJQzonQWN0aW9uQ29u
+dHJvbGxlcjo6Rmxhc2g6OkZsYXNoSGFzaHsABjoKQHVzZWR7AA==--b23dc0abd83454a453a5343e5fa5f1d4aaf2b207
+  Parameters: {"action"=>"index", "controller"=>"statuses"}
+  [4;36;1mUser Columns (0.013578)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.001367)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mStatus Load (0.000955)[0m   [0;1mSELECT * FROM `statuses` ORDER BY created_at DESC[0m
+  [4;35;1mStatus Columns (0.002552)[0m   [0mSHOW FIELDS FROM `statuses`[0m
+Rendering template within layouts/application
+Rendering statuses/index
+  [4;36;1mUser Load (0.001450)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+Completed in 0.05676 (17 reqs/sec) | Rendering: 0.00646 (11%) | DB: 0.02298 (40%) | 200 OK [http://0.0.0.0/]
