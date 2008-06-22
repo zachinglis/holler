@@ -5,3 +5,4 @@ h1. Todo
 * Look into auto_tags
 * Statuses.xml
 * Remove login from users
+* Reorder users based on recent posts
