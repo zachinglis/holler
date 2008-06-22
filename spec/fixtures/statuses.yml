@@ -23,4 +23,10 @@ playing_with_jquery:
 
 designing_ui_for_holler:
   message: Designing the UI for holler
-  user_id: 1
+  user_id: 2
+
+thinking_about_holler:
+  message: Thinking about what to do for holler
+  user_id: 2
+  created_at: <%= 2.days.ago %>
+  

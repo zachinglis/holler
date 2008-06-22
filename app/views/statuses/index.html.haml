@@ -1,6 +1,6 @@
 %h2 Statuses
 %ul
-  - @statuses.sort.each do |date, statuses|
+  - @statuses.sort.reverse.each do |date, statuses|
     %li
       %h3= date
       %ul
