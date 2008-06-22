@@ -1,7 +1,8 @@
 .DS_Store
 config/database.yml
+config/initializers/site_keys.rb
+coverage
 db/schema.rb
 db/*.db
 db/*.sql*
-coverage
 doc
