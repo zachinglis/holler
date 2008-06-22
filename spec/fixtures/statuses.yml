@@ -1,9 +1,25 @@
+# == Schema Information
+# Schema version: 20080622042242
+#
+# Table name: statuses
+#
+#  id         :integer(11)     not null, primary key
+#  message    :text
+#  user_id    :integer(11)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  message: MyText
+specing_foo:
+  message: Specing foo
   user_id: 1
 
-two:
-  message: MyText
+playing_with_jquery:
+  message: Playing with jQuery
+  user_id: 1
+
+designing_ui_for_holler:
+  message: Designing the UI for holler
   user_id: 1
