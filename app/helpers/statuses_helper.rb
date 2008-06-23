@@ -1,7 +1,7 @@
 module StatusesHelper
   def today_tomorow_or_day(time)
-    case time.yday
-    when Time.now.yday
+    case time.utc.yday
+    when Time.now.utc.yday
       "Today"
     when 1.day.ago.yday
       "Yesterday"

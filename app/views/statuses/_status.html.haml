@@ -3,4 +3,6 @@
     %small
       = time_ago_in_words(status.created_at).gsub(/about /,'')
       ago
-  = status.message
+  %strong= status.message
+  %em.tags= status.tag_list
+  
