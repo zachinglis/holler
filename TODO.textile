@@ -1,6 +1,5 @@
 h1. Todo
 
-* Style up UI
 * Look into auto_tags
-* Statuses.xml
-* Remove login from users
+* Remove login from user model
+* Tag cloud for today
