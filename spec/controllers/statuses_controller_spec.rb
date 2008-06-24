@@ -40,7 +40,7 @@ describe StatusesController do
       it "should create a new status" do
         lambda {
           post :create, :status => { :message => "Doing stuff" }
-          response.should be_success
+          response.should be_redirect
         }.should change { Status.count }
       end
       

@@ -19,5 +19,6 @@ class StatusesController < ApplicationController
     @status = Status.new(params[:status])
     @status.user_id = current_user.id
     @status.save!
+    redirect_to root_url
   end
 end
