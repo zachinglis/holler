@@ -1,3 +1,8 @@
 h1. Holler
 
 A project inspired by 37signal's "In/Out":http://www.37signals.com/svn/posts/976-a-peek-at-inout-an-internal-app-at-37signals and "Shout":http://davidsmalley.com/2008/4/21/shout-at-a-glance-status but with a few extra features.
+
+h2. Install
+
+"Get Holler":http://github.com/zachinglis/holler/tree/master.  Once you've got the application extracted, you need to first create a database.yml file in your application's config directory.  Next, it is very important that you create a site_keys.rb file in the initializers directory.  An example file is provided for you to edit - make sure you rename it to just site_keys.rb.  Once these two steps are completed, simply start up whatever webserver you enjoy and sign up.
+
