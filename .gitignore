@@ -6,4 +6,3 @@ db/schema.rb
 db/*.db
 db/*.sql*
 doc
-log/*
