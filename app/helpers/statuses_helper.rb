@@ -13,4 +13,14 @@ module StatusesHelper
   def user_class(user, current_user)
     "highlight" if user == current_user
   end
+  
+  def status_time_ago_in_words(time)
+    time = time_ago_in_words(time)
+    case time
+    when "less than a minute"
+      "recently"
+    else
+      time.gsub(/about /,'') + " ago"
+    end
+  end
 end
