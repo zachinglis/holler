@@ -1,15 +1,16 @@
 %h2 Log In
-- form_tag login_url do
-  %p
-    %label{ :for => "login" } Login
-    %br/
-    = text_field_tag 'login', @login
-  %p
-    %label{ :for => "password" } Password
-    %br/
-    = password_field_tag 'password', nil
-  %p
-    %label{ :for => "remember_me"} Remember me:
-    = check_box_tag 'remember_me', '1', @remember_me
-  %p= submit_tag 'Log in'
-%p= link_to "Signup", signup_url
+.content
+  - form_tag login_url do
+    %p
+      %label{ :for => "login" } Login
+      %br/
+      = text_field_tag 'login', @login
+    %p
+      %label{ :for => "password" } Password
+      %br/
+      = password_field_tag 'password', nil
+    %p
+      %label{ :for => "remember_me"} Remember me:
+      = check_box_tag 'remember_me', '1', @remember_me
+    %p= submit_tag 'Log in'
+  %p= link_to "Signup", signup_url
