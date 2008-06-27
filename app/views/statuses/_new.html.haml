@@ -1,6 +1,5 @@
 #new_status
   - form_for @status do |make|
-    %p
-      = make.label :message, "What are you working on?"
-      = make.text_field :message
+    = make.label :message, "What are you working on?"
+    = make.text_field :message
     = make.submit "Update"
