@@ -8,6 +8,7 @@ class StatusesController < ApplicationController
     respond_to do |wants|
       wants.html  { @statuses = @statuses.group_by { |status| status.created_at.strftime("%j") } }
       wants.xml   { render :text => @statuses.to_xml }
+      wants.json  { render :text => @statuses.to_json }
     end
   end
   
