@@ -1,0 +1,28 @@
+SerializeFu
+===========
+
+Adds to_json and to_xml methods to your ActiveRecord models
+
+
+Example
+=======
+
+class Post < ActiveRecord::Base
+	serialize_fu :only => [:body], :include => :user
+end
+
+is the same as:
+
+class Post < ActiveRecord::Base
+
+	def to_json(options={})
+		super { :only => [:body], :include => :user}.merge(options)
+	end
+	
+	def to_xml(options={})
+		super { :only => [:body], :include => :user}.merge(options)
+	end
+end
+
+
+Copyright (c) 2008 [Michael Bumann michael@railslove.com], released under the MIT license
