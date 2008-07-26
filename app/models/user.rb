@@ -22,6 +22,8 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  # for to_json and to_xml
+  serialize_fu :methods => :gravatar_url 
   
   has_many  :statuses, :dependent => :nullify
   has_one   :current_status, :class_name => "Status", :order => "created_at", :dependent => :nullify
@@ -63,7 +65,22 @@ class User < ActiveRecord::Base
     u = find_in_state :first, :active, :conditions => {:login => login} # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
-
+  
+  # Return the gravatar URL - ugly C&P from gravatar plugin - but the plugin is for ActionView only
+  def gravatar_url(options={})
+    email_hash = Digest::MD5.hexdigest(email)
+    options = GravatarHelper::DEFAULT_OPTIONS.merge(options)
+    options[:default] = CGI::escape(options[:default]) unless options[:default].nil?
+    returning "http://www.gravatar.com/avatar.php?gravatar_id=#{email_hash}" do |url| 
+      [:rating, :size, :default].each do |opt|
+        unless options[opt].nil?
+          value = options[opt]
+          url << "&#{opt}=#{value}" 
+        end
+      end
+    end
+  end
+  
 protected
   
   def make_activation_code

@@ -7,8 +7,8 @@ class StatusesController < ApplicationController
     
     respond_to do |wants|
       wants.html  { @statuses = @statuses.group_by { |status| status.created_at.strftime("%j") } }
-      wants.xml   { render :text => @statuses.to_xml }
-      wants.json  { render :text => @statuses.to_json }
+      wants.xml   { render :xml => @statuses }
+      wants.json  { render :json => @statuses }
     end
   end
   
@@ -20,6 +20,10 @@ class StatusesController < ApplicationController
     @status = Status.new(params[:status])
     @status.user_id = current_user.id
     @status.save!
-    redirect_to root_url
+    respond_to do |wants|
+      wants.html  { redirect_to root_url } 
+      wants.xml  { render :xml => @status, :status => :created, :location => @status }
+      wants.json { render :json => @status }
+    end
   end
 end

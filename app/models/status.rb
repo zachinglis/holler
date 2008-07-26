@@ -12,6 +12,8 @@
 
 class Status < ActiveRecord::Base
   acts_as_taggable
+  # for to_json and to_xml
+  serialize_fu :include => :user
   
   belongs_to :user
   
@@ -24,4 +26,6 @@ class Status < ActiveRecord::Base
   attr_protected :user_id
   
   alias_attribute :to_s, :message
+
+  
 end
