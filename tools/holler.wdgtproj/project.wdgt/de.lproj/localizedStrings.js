@@ -1,0 +1,3 @@
+
+var localizedStrings = new Object;
+
