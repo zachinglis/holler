@@ -120,8 +120,8 @@ function displayStatuses(event, request) {
 		message = document.createElement("span");
 		gravatar_wrapper.className ="gravatar";
 		
-		gravatar.alt = "bumi";//statuses[i].status.user.name;
-		gravatar.src = "http://www.gravatar.com/avatar.php?gravatar_id=fd9aebbd7d8fcd1e7aa3838b49815635&rating=PG&size=50";//statuses[i].status.user.gravatar_url;
+		gravatar.alt = statuses[i].status.user.name;
+		gravatar.src = statuses[i].status.user.gravatar_url;
 		
 		message.innerHTML = statuses[i].status.message;
 		
