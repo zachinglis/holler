@@ -12,7 +12,7 @@ class StatusesController < ApplicationController
     end
   end
   
-  def tag
+  def tags
     @statuses = Status.find_tagged_with(params[:tags], :match_all => !params[:match_all].blank?)
     new
     
