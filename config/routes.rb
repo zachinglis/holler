@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   
 # Resources  
-  map.resources :statuses
+  map.resources :statuses, :collection => {:tags => :get}
   map.resources :users, :member => { :suspend   => :put,
                                      :unsuspend => :put,
                                      :purge     => :delete } 
@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup    '/signup',    :controller => 'users',     :action => 'new' 
   map.login     '/login',     :controller => 'sessions',  :action => 'new' 
   map.logout    '/logout',    :controller => 'sessions',  :action => 'destroy'
+
 
 
 end
