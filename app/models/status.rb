@@ -13,7 +13,7 @@
 class Status < ActiveRecord::Base
   acts_as_taggable
   # for to_json and to_xml
-  serialize_fu :include => :user
+  serialize_fu :include => :user, :methods => [:user_name, :user_gravatar_url]
   
   belongs_to :user
   
@@ -26,6 +26,14 @@ class Status < ActiveRecord::Base
   attr_protected :user_id
   
   alias_attribute :to_s, :message
-
+  
+  # this is actually a hack because of: http://rails.lighthouseapp.com/projects/8994/tickets/610-activerecord-to_json-doesn-t-invoke-include-s-to_json
+  def user_name
+    self.user.name
+  end
+  # this is actually a hack because of: http://rails.lighthouseapp.com/projects/8994/tickets/610-activerecord-to_json-doesn-t-invoke-include-s-to_json
+  def user_gravatar_url
+    self.user.gravatar_url
+  end
   
 end

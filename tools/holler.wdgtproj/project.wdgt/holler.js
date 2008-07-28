@@ -120,8 +120,8 @@ function displayStatuses(event, request) {
 		message = document.createElement("span");
 		gravatar_wrapper.className ="gravatar";
 		
-		gravatar.alt = statuses[i].status.user.name;
-		gravatar.src = statuses[i].status.user.gravatar_url;
+		gravatar.alt = statuses[i].status.user_name;
+		gravatar.src = statuses[i].status.user_gravatar_url;
 		
 		message.innerHTML = statuses[i].status.message;
 		
