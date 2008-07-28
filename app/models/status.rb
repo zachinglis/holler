@@ -40,7 +40,9 @@ class Status < ActiveRecord::Base
   
   private
     def extract_tags
-      return unless match = self.message.match(/#(\w*)/)
-      self.tag_list = match.captures.join(",")
+      self.message.gsub!(/#(\w*)/) do
+        self.tag_list.add($1)
+        ""
+      end
     end
 end

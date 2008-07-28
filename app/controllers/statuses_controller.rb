@@ -12,6 +12,20 @@ class StatusesController < ApplicationController
     end
   end
   
+  def tag
+    @statuses = Status.find_tagged_with(params[:tags], :match_all => !params[:match_all].blank?)
+    new
+    
+    respond_to do |wants|
+      wants.html  { 
+        @statuses = @statuses.group_by { |status| status.created_at.strftime("%j") }
+        render :action => :index
+      }
+      wants.xml   { render :xml => @statuses }
+      wants.json  { render :json => @statuses }
+    end
+  end
+  
   def new
     @status = Status.new
   end
