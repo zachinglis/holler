@@ -25,6 +25,8 @@ class Status < ActiveRecord::Base
   
   attr_protected :user_id
   
+  before_save :extract_tags
+  
   alias_attribute :to_s, :message
   
   # this is actually a hack because of: http://rails.lighthouseapp.com/projects/8994/tickets/610-activerecord-to_json-doesn-t-invoke-include-s-to_json
@@ -36,4 +38,9 @@ class Status < ActiveRecord::Base
     self.user.gravatar_url
   end
   
+  private
+    def extract_tags
+      return unless match = self.message.match(/#(\w*)/)
+      self.tag_list = match.captures.join(",")
+    end
 end
