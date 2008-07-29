@@ -6,3 +6,8 @@ h2. Install
 
 "Get Holler":http://github.com/zachinglis/holler/tree/master.  Once you've got the application extracted, you need to first create a database.yml file in your application's config directory.  Next, it is very important that you create a site_keys.rb file in the initializers directory.  An example file is provided for you to edit - make sure you rename it to just site_keys.rb.  Once these two steps are completed, simply start up whatever webserver you enjoy and sign up.
 
+h2. Credits
+
+* "Zach Inglis":http://zachinglis.com
+* "Michael Bumann":http://railslove.com
+* Mark Lussier
