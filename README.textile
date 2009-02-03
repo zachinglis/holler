@@ -9,5 +9,6 @@ h2. Install
 h2. Credits
 
 * "Zach Inglis":http://zachinglis.com
+* "Jeremy Durham":http://jeremydurham.com
 * "Michael Bumann":http://railslove.com
 * Mark Lussier
