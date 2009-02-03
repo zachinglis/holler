@@ -1,22 +1,23 @@
 require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../../spec_helper')
 
+<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 describe "/<%= table_name %>/show.<%= default_file_extension %>" do
   include <%= controller_class_name %>Helper
-  
   before(:each) do
-    @<%= file_name %> = mock_model(<%= class_name %>)
-<% for attribute in attributes -%>
-    @<%= file_name %>.stub!(:<%= attribute.name %>).and_return(<%= attribute.default_value %>)
+    assigns[:<%= file_name %>] = @<%= file_name %> = stub_model(<%= class_name %><%= output_attributes.empty? ? ')' : ',' %>
+<% output_attributes.each_with_index do |attribute, attribute_index| -%>
+      :<%= attribute.name %> => <%= attribute.default_value %><%= attribute_index == output_attributes.length - 1 ? '' : ','%>
 <% end -%>
-
-    assigns[:<%= file_name %>] = @<%= file_name %>
+<% if !output_attributes.empty? -%>
+    )
+<% end -%>
   end
 
   it "should render attributes in <p>" do
     render "/<%= table_name %>/show.<%= default_file_extension %>"
-<% for attribute in attributes -%><% unless attribute.name =~ /_id/ || [:datetime, :timestamp, :time, :date].index(attribute.type) -%>
-    response.should have_text(/<%= Regexp.escape(attribute.default_value)[1..-2]%>/)
-<% end -%><% end -%>
+<% for attribute in output_attributes -%>
+    response.should have_text(/<%= Regexp.escape(attribute.default_value).gsub(/^"|"$/, '')%>/)
+<% end -%>
   end
 end
 

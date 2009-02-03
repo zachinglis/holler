@@ -38,29 +38,9 @@ module Spec
       #
       # == Expecting Errors
       #
-      # Rspec on Rails will raise errors that occur in controller actions.
-      # In contrast, Rails will swallow errors that are raised in controller
-      # actions and return an error code in the header. If you wish to override
-      # Rspec and have Rail's default behaviour,tell the controller to use
-      # rails error handling ...
+      # Rspec on Rails will raise errors that occur in controller actions and
+      # are not rescued or handeled with rescue_from.
       #
-      #   before(:each) do
-      #     controller.use_rails_error_handling!
-      #   end
-      #
-      # When using Rail's error handling, you can expect error codes in headers ...
-      #
-      #   it "should return an error in the header" do
-      #     response.should be_error
-      #   end
-      #
-      #   it "should return a 501" do
-      #     response.response_code.should == 501
-      #   end
-      #
-      #   it "should return a 501" do
-      #     response.code.should == "501"
-      #   end
       class ControllerExampleGroup < FunctionalExampleGroup
         class << self
                     
@@ -97,7 +77,7 @@ module Spec
           end
           attr_accessor :controller_class_name # :nodoc:
         end
-
+        
         before(:each) do
           # Some Rails apps explicitly disable ActionMailer in environment.rb
           if defined?(ActionMailer)
@@ -125,7 +105,7 @@ module Spec
 
         attr_reader :response, :request, :controller
 
-        def initialize(defined_description, &implementation) #:nodoc:
+        def initialize(defined_description, options={}, &implementation) #:nodoc:
           super
           controller_class_name = self.class.controller_class_name
           if controller_class_name
@@ -135,6 +115,24 @@ module Spec
           end
           @integrate_views = self.class.integrate_views?
         end
+        
+        class RouteForMatcher
+          def initialize(example, options)
+            @example, @options = example, options
+          end
+          
+          def ==(expected)
+            if Hash === expected
+              path, querystring = expected[:path].split('?')
+              path = expected.merge(:path => path)
+            else
+              path, querystring = expected.split('?')
+            end
+            params = querystring.blank? ? {} : @example.params_from_querystring(querystring)
+            @example.assert_recognizes(@options, path, params)
+            true
+          end
+        end
 
         # Uses ActionController::Routing::Routes to generate
         # the correct route for a given set of options.
@@ -142,26 +140,40 @@ module Spec
         #   route_for(:controller => 'registrations', :action => 'edit', :id => 1)
         #     => '/registrations/1;edit'
         def route_for(options)
-          ensure_that_routes_are_loaded
-          ActionController::Routing::Routes.generate(options)
+          RouteForMatcher.new(self, options)
         end
 
         # Uses ActionController::Routing::Routes to parse
         # an incoming path so the parameters it generates can be checked
         # == Example
-        #   params_from(:get, '/registrations/1;edit')
+        #   params_from(:get, '/registrations/1/edit')
         #     => :controller => 'registrations', :action => 'edit', :id => 1
         def params_from(method, path)
           ensure_that_routes_are_loaded
-          ActionController::Routing::Routes.recognize_path(path, :method => method)
+          path, querystring = path.split('?')
+          params = ActionController::Routing::Routes.recognize_path(path, :method => method)
+          querystring.blank? ? params : params.merge(params_from_querystring(querystring))
         end
 
-        protected
+        def params_from_querystring(querystring) # :nodoc:
+          params = {}
+          querystring.split('&').each do |piece|
+            key, value = piece.split('=')
+            params[key.to_sym] = value
+          end
+          params
+        end
+
+      protected
+
         def _assigns_hash_proxy
-          @_assigns_hash_proxy ||= AssignsHashProxy.new @controller
+          @_assigns_hash_proxy ||= AssignsHashProxy.new self do
+            @response.template
+          end
         end
 
-        private
+      private
+
         def ensure_that_routes_are_loaded
           ActionController::Routing::Routes.reload if ActionController::Routing::Routes.empty?
         end
@@ -174,70 +186,55 @@ module Spec
           # This gets added to the controller's singleton meta class,
           # allowing Controller Examples to run in two modes, freely switching
           # from context to context.
-          def render(options=nil, deprecated_status_or_extra_options=nil, &block)
-            if ::Rails::VERSION::STRING >= '2.0.0' && deprecated_status_or_extra_options.nil?
-              deprecated_status_or_extra_options = {}
-            end
+          def render(options=nil, &block)
               
             unless block_given?
               unless integrate_views?
                 if @template.respond_to?(:finder)
                   (class << @template.finder; self; end).class_eval do
-                    define_method :file_exists? do
-                      true
-                    end
+                    define_method :file_exists? do; true; end
                   end
                 else
                   (class << @template; self; end).class_eval do
-                    define_method :file_exists? do
-                      true
-                    end
+                    define_method :file_exists? do; true; end
                   end
                 end
                 (class << @template; self; end).class_eval do
                   define_method :render_file do |*args|
-                    @first_render ||= args[0]
+                    @first_render ||= args[0] unless args[0] =~ /^layouts/
+                    @_first_render ||= args[0] unless args[0] =~ /^layouts/
+                  end
+                  
+                  define_method :_pick_template do |*args|
+                    @_first_render ||= args[0] unless args[0] =~ /^layouts/
+                    PickedTemplate.new
+                  end
+                  
+                  define_method :render do |*args|
+                    if @_rendered
+                      opts = args[0]
+                      (@_rendered[:template] ||= opts[:file]) if opts[:file]
+                      (@_rendered[:partials][opts[:partial]] += 1) if opts[:partial]
+                    else
+                      super
+                    end
                   end
                 end
               end
             end
 
             if matching_message_expectation_exists(options)
-              expect_render_mock_proxy.render(options, &block)
+              render_proxy.render(options, &block)
               @performed_render = true
             else
-              unless matching_stub_exists(options)
-                super(options, deprecated_status_or_extra_options, &block)
+              if matching_stub_exists(options)
+                @performed_render = true
+              else
+                super(options, &block)
               end
             end
           end
           
-          def raise_with_disable_message(old_method, new_method)
-            raise %Q|
-      controller.#{old_method}(:render) has been disabled because it
-      can often produce unexpected results. Instead, you should
-      use the following (before the action):
-
-      controller.#{new_method}(*args)
-
-      See the rdoc for #{new_method} for more information.
-            |
-          end
-          def should_receive(*args)
-            if args[0] == :render
-              raise_with_disable_message("should_receive", "expect_render")
-            else
-              super
-            end
-          end
-          def stub!(*args)
-            if args[0] == :render
-              raise_with_disable_message("stub!", "stub_render")
-            else
-              super
-            end
-          end
-
           def response(&block)
             # NOTE - we're setting @update for the assert_select_spec - kinda weird, huh?
             @update = block
@@ -255,16 +252,24 @@ module Spec
           end
 
           def matching_message_expectation_exists(options)
-            expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
+            render_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
           end
         
           def matching_stub_exists(options)
-            expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
+            render_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
           end
         
         end
 
         Spec::Example::ExampleGroupFactory.register(:controller, self)
+      end
+      
+      # Returned by _pick_template when running controller examples in isolation mode.
+      class PickedTemplate 
+        # Do nothing when running controller examples in isolation mode.
+        def render_template(*ignore_args); end
+        # Do nothing when running controller examples in isolation mode.
+        def render_partial(*ignore_args);  end
       end
     end
   end

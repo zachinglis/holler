@@ -14,6 +14,7 @@ module Spec
           end
         end
         @instance = @class.new
+        @stub = Object.new
       end
 
       it "should return expected value when expected message is received" do
@@ -43,6 +44,12 @@ module Spec
         lambda do
           @instance.rspec_verify
         end.should_not raise_error
+      end
+
+      it "should handle multiple stubbed methods" do
+        @instance.stub!(:msg1 => 1, :msg2 => 2)
+        @instance.msg1.should == 1
+        @instance.msg2.should == 2
       end
       
       it "should clear itself when verified" do
@@ -129,6 +136,12 @@ module Spec
         @stub.should_receive(:foo).with("baz")
         @stub.foo("bar")
         @stub.foo("baz")
+      end
+
+      it "calculates return value by executing block passed to #and_return" do
+        @mock.stub!(:something).with("a","b","c").and_return { |a,b,c| c+b+a }
+        @mock.something("a","b","c").should == "cba"
+        @mock.rspec_verify
       end
     end
     

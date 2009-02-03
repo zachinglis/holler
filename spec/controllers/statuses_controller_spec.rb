@@ -26,15 +26,6 @@ describe StatusesController do
         assigns(:status).should be_new_record
       end
     end
-
-    describe "#new" do
-      it "should initalize a new status object" do
-        get :new
-        assigns(:status).should_not be_nil
-        assigns(:status).should be_new_record
-        response.should be_success
-      end      
-    end
     
     describe "#create" do
       it "should create a new status" do

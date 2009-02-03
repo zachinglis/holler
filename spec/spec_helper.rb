@@ -24,6 +24,7 @@ Spec::Runner.configure do |config|
   # names with your fixtures.
   #
   config.global_fixtures = :users
+  # config.global_fixtures = :table_a, :table_b
   #
   # If you declare global fixtures, be aware that they will be declared
   # for all of your examples, even those that don't use them.
@@ -43,6 +44,6 @@ Spec::Runner.configure do |config|
   #
   # == Notes
   # 
-  # For more information take a look at Spec::Example::Configuration and Spec::Runner
+  # For more information take a look at Spec::Runner::Configuration and Spec::Runner
   include AuthenticatedTestHelper
 end

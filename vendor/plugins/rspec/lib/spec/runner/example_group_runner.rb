@@ -10,6 +10,7 @@ module Spec
         # responsibility of the ExampleGroupRunner. Some implementations (like)
         # the one using DRb may choose *not* to load files, but instead tell
         # someone else to do it over the wire.
+        $KCODE = 'u' if RUBY_VERSION < '1.9'
         files.each do |file|
           load file
         end
@@ -19,14 +20,15 @@ module Spec
         prepare
         success = true
         example_groups.each do |example_group|
-          success = success & example_group.run
+          success = success & example_group.run(@options)
         end
         return success
       ensure
         finish
       end
 
-      protected
+    protected
+
       def prepare
         reporter.start(number_of_examples)
         example_groups.reverse! if reverse
@@ -53,7 +55,17 @@ module Spec
         @options.number_of_examples
       end
     end
-    # TODO: BT - Deprecate BehaviourRunner?
-    BehaviourRunner = ExampleGroupRunner
+    
+    class BehaviourRunner < ExampleGroupRunner
+      def initialize(options)
+        Kernel.warn <<-WARNING
+DEPRECATED: The BeheviourRunner class is deprecated and will
+be removed from rspec-1.2.
+
+Use ExampleGroupRunner instead.
+WARNING
+        super
+      end
+    end
   end
 end

@@ -20,6 +20,10 @@ describe "should change(actual, message)" do
       lambda {}.should change(@instance, :some_value)
     end.should fail_with("some_value should have changed, but is still 5")
   end
+  
+  it "provides a #description" do
+    change(@instance, :some_value).description.should == "change #some_value"
+  end
 end
 
 describe "should_not change(actual, message)" do
@@ -55,11 +59,14 @@ describe "should change { block }" do
     end.should fail_with("result should have changed, but is still 5")
   end
   
-  it "should warn if passed a block using do/end" do
+  it "should warn if passed a block using do/end instead of {}" do
     lambda do
-      lambda {}.should change do
-      end
+      lambda {}.should change do; end
     end.should raise_error(Spec::Matchers::MatcherError, /block passed to should or should_not/)
+  end
+  
+  it "provides a #description" do
+    change { @instance.some_value }.description.should == "change #result"
   end
 end
 
@@ -79,10 +86,9 @@ describe "should_not change { block }" do
     end.should fail_with("result should not have changed, but did change from 5 to 6")
   end
   
-  it "should warn if passed a block using do/end" do
+  it "should warn if passed a block using do/end instead of {}" do
     lambda do
-      lambda {}.should_not change do
-      end
+      lambda {}.should_not change do; end
     end.should raise_error(Spec::Matchers::MatcherError, /block passed to should or should_not/)
   end
 end
@@ -315,5 +321,17 @@ describe "should change{ block }.from(old).to(new)" do
 
   it "should pass when #from comes before #to" do
     lambda { @instance.some_value = "cat" }.should change{@instance.some_value}.from("string").to("cat")
+  end
+end
+
+describe Spec::Matchers::Change do
+  it "should work when the receiver has implemented #send" do
+    @instance = SomethingExpected.new
+    @instance.some_value = "string"
+    def @instance.send(*args); raise "DOH! Library developers shouldn't use #send!" end
+    
+    lambda {
+      lambda { @instance.some_value = "cat" }.should change(@instance, :some_value)
+    }.should_not raise_error
   end
 end
