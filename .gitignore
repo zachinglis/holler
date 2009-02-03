@@ -5,4 +5,5 @@ coverage
 db/schema.rb
 db/*.db
 db/*.sql*
+log/*.log
 doc
