@@ -6,7 +6,6 @@ require 'sass/tree/attr_node'
 require 'sass/tree/directive_node'
 require 'sass/constant'
 require 'sass/error'
-require 'haml/shared'
 
 module Sass
   # This is the class where all the parsing and processing of the Sass
@@ -113,10 +112,11 @@ module Sass
       root = Tree::Node.new(@options[:style])
       index = 0
       while @lines[index]
+        old_index = index
         child, index = build_tree(index)
 
         if child.is_a? Tree::Node
-          child.line = index
+          child.line = old_index + 1
           root << child
         elsif child.is_a? Array
           child.each do |c|
@@ -149,7 +149,7 @@ module Sass
           raise SyntaxError.new("Indenting at the beginning of the document is illegal.", @line) if old_tabs.nil? && tabs > 0
 
           if old_tabs && tabs - old_tabs > 1
-            raise SyntaxError.new("The line was indented #{tabs - old_tabs} levels deeper than the previous line.", @line)
+            raise SyntaxError.new("#{tabs * 2} spaces were used for indentation. Sass must be indented using two spaces.", @line)
           end
           @lines << [line.strip, tabs]
 
@@ -165,25 +165,19 @@ module Sass
     # Counts the tabulation of a line.
     def count_tabs(line)
       return nil if line.strip.empty?
-      return 0 unless whitespace = line[/^\s+/]
+      return nil unless spaces = line.index(/[^ ]/)
 
-      if @indentation.nil?
-        @indentation = whitespace
-        
-        if @indentation.include?(?\s) && @indentation.include?(?\t)
-          raise SyntaxError.new("Indentation can't use both tabs and spaces.", @line)
-        end
-
-        return 1
-      end
-
-      tabs = whitespace.length / @indentation.length
-      return tabs if whitespace == @indentation * tabs
-
-      raise SyntaxError.new(<<END.strip.gsub("\n", ' '), @line)
-Inconsistent indentation: #{Haml::Shared.human_indentation whitespace, true} used for indentation,
-but the rest of the document was indented using #{Haml::Shared.human_indentation @indentation}.
+      if spaces % 2 == 1
+          raise SyntaxError.new(<<END.strip, @line)
+#{spaces} space#{spaces == 1 ? ' was' : 's were'} used for indentation. Sass must be indented using two spaces.
 END
+      elsif line[spaces] == ?\t
+        raise SyntaxError.new(<<END.strip, @line)
+A tab character was used for indentation. Sass must be indented using two spaces.
+Are you sure you have soft tabs enabled in your editor?
+END
+      end
+      spaces / 2
     end
 
     def build_tree(index)
@@ -284,7 +278,13 @@ END
     def parse_line(line)
       case line[0]
       when ATTRIBUTE_CHAR
-        parse_attribute(line, ATTRIBUTE)
+        if line[1] != ATTRIBUTE_CHAR
+          parse_attribute(line, ATTRIBUTE)
+        else
+          # Support CSS3-style pseudo-elements,
+          # which begin with ::
+          Tree::RuleNode.new(line, @options[:style])
+        end
       when Constant::CONSTANT_CHAR
         parse_constant(line)
       when COMMENT_CHAR
@@ -371,7 +371,7 @@ END
     end
 
     def parse_mixin_definition(line)
-      mixin_name = line[1..-1]
+      mixin_name = line[1..-1].strip
       @mixins[mixin_name] =  []
       index = @line
       line, tabs = @lines[index]
@@ -446,15 +446,9 @@ END
 
       new_filename = find_full_path("#{filename}.sass", load_paths)
 
-      if new_filename.nil?
-        if was_sass
-          raise Exception.new("File to import not found or unreadable: #{original_filename}.")
-        else
-          return filename + '.css'
-        end
-      else
-        new_filename
-      end
+      return new_filename if new_filename
+      return filename + '.css' unless was_sass
+      raise SyntaxError.new("File to import not found or unreadable: #{original_filename}.", @line)
     end
 
     def self.find_full_path(filename, load_paths)

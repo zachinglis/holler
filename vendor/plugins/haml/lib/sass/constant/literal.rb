@@ -1,7 +1,5 @@
-# :stopdoc:
 # Let the subclasses see the superclass
-module Sass::Constant; class Literal; end; end;
-# :startdoc:
+module Sass::Constant; class Literal; end; end; # :nodoc:
 
 require 'sass/constant/string'
 require 'sass/constant/number'
@@ -23,19 +21,13 @@ class Sass::Constant::Literal # :nodoc:
       Sass::Constant::Number.new(value)
     when COLOR
       Sass::Constant::Color.new(value)
-    when ::Symbol
-      value
     else
       Sass::Constant::String.new(value)
     end
   end
 
   def initialize(value = nil)
-    if value.is_a?(String)
-      self.parse(value)
-    else
-      @value = value
-    end
+    self.parse(value) if value
   end
 
   def perform
@@ -44,18 +36,6 @@ class Sass::Constant::Literal # :nodoc:
 
   def concat(other)
     Sass::Constant::String.from_value("#{self.to_s} #{other.to_s}")
-  end
-
-  def comma(other)
-    Sass::Constant::String.from_value("#{self.to_s}, #{other.to_s}")
-  end
-
-  def inspect
-    value.inspect
-  end
-
-  def to_arglist
-    [self]
   end
 
   attr_reader :value

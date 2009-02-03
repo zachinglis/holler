@@ -34,9 +34,15 @@ class SassEngineTest < Test::Unit::TestCase
     "!a" => 'Invalid constant: "!a".',
     "! a" => 'Invalid constant: "! a".',
     "!a b" => 'Invalid constant: "!a b".',
+    "a\n\t:b c" => <<END.strip,
+A tab character was used for indentation. Sass must be indented using two spaces.
+Are you sure you have soft tabs enabled in your editor?
+END
+    "a\n :b c" => "1 space was used for indentation. Sass must be indented using two spaces.",
+    "a\n    :b c" => "4 spaces were used for indentation. Sass must be indented using two spaces.",
     "a\n  :b c\n  !d = 3" => "Constants may only be declared at the root of a document.",
     "!a = 1b + 2c" => "Incompatible units: b and c.",
-    "& a\n  :b c" => "Base-level rules cannot contain the parent-selector-referencing character '&'.",
+    "& a\n  :b c" => ["Base-level rules cannot contain the parent-selector-referencing character '&'.", 1],
     "a\n  :b\n    c" => "Illegal nesting: Only attributes may be nested beneath attributes.",
     "a,\n  :b c" => "Rules can\'t end in commas.",
     "a," => "Rules can\'t end in commas.",
@@ -52,17 +58,11 @@ class SassEngineTest < Test::Unit::TestCase
     "=foo\n  :color red\n.bar\n  +foo\n    :color red" => "Illegal nesting: Nothing may be nested beneath mixin directives.",
     "    a\n  b: c" => ["Indenting at the beginning of the document is illegal.", 1],
     " \n   \n\t\n  a\n  b: c" => ["Indenting at the beginning of the document is illegal.", 4],
-    "a\n  b: c\n b: c" => ["Inconsistent indentation: 1 space was used for indentation, but the rest of the document was indented using 2 spaces.", 3],
-    "a\n  b: c\na\n b: c" => ["Inconsistent indentation: 1 space was used for indentation, but the rest of the document was indented using 2 spaces.", 4],
-    "a\n\t\tb: c\n\tb: c" => ["Inconsistent indentation: 1 tab was used for indentation, but the rest of the document was indented using 2 tabs.", 3],
-    "a\n  b: c\n   b: c" => ["Inconsistent indentation: 3 spaces were used for indentation, but the rest of the document was indented using 2 spaces.", 3],
-    "a\n  b: c\n  a\n   d: e" => ["Inconsistent indentation: 3 spaces were used for indentation, but the rest of the document was indented using 2 spaces.", 4],
-    "a\n  b: c\na\n    d: e" => ["The line was indented 2 levels deeper than the previous line.", 4],
-    "a\n  b: c\n  a\n        d: e" => ["The line was indented 3 levels deeper than the previous line.", 4],
-    "a\n \tb: c" => ["Indentation can't use both tabs and spaces.", 2],
 
     # Regression tests
-    "a\n  b:\n    c\n    d" => ["Illegal nesting: Only attributes may be nested beneath attributes.", 3]
+    "a\n  b:\n    c\n    d" => ["Illegal nesting: Only attributes may be nested beneath attributes.", 3],
+    "& foo\n  bar: baz\n  blat: bang" => ["Base-level rules cannot contain the parent-selector-referencing character '&'.", 1],
+    "a\n  b: c\n& foo\n  bar: baz\n  blat: bang" => ["Base-level rules cannot contain the parent-selector-referencing character '&'.", 3],
   }
   
   def test_basic_render
@@ -79,13 +79,6 @@ class SassEngineTest < Test::Unit::TestCase
     renders_correctly "compact", { :style => :compact }
     renders_correctly "nested", { :style => :nested }
     renders_correctly "compressed", { :style => :compressed }
-  end
-  
-  def test_flexible_tabulation
-    assert_equal("p {\n  a: b; }\n  p q {\n    c: d; }\n",
-                 render("p\n a: b\n q\n  c: d\n"))
-    assert_equal("p {\n  a: b; }\n  p q {\n    c: d; }\n",
-                 render("p\n\ta: b\n\tq\n\t\tc: d\n"))
   end
   
   def test_exceptions
@@ -143,16 +136,6 @@ class SassEngineTest < Test::Unit::TestCase
     assert_equal("foo {\n  bar: url(); }\n", render("foo\n  bar = url()\n"));
   end
 
-  def test_string_minus
-    assert_equal("foo {\n  bar: baz-boom-bat; }\n", render("foo\n  bar = baz-boom-bat"))
-    assert_equal("foo {\n  bar: -baz-boom; }\n", render("foo\n  bar = -baz-boom"))
-  end
-
-  def test_string_div
-    assert_equal("foo {\n  bar: baz/boom/bat; }\n", render("foo\n  bar = baz/boom/bat"))
-    assert_equal("foo {\n  bar: /baz/boom; }\n", render("foo\n  bar = /baz/boom"))
-  end
-
   def test_basic_multiline_selector
     assert_equal("#foo #bar,\n#baz #boom {\n  foo: bar; }\n",
                  render("#foo #bar,\n#baz #boom\n  :foo bar"))
@@ -189,6 +172,16 @@ class SassEngineTest < Test::Unit::TestCase
     else
       assert(false, "SyntaxError not raised for :attribute_syntax => :alternate")
     end
+  end
+
+  def test_pseudo_elements
+    assert_equal(<<CSS, render(<<SASS))
+::first-line {
+  size: 10em; }
+CSS
+::first-line
+  size: 10em
+SASS
   end
 
   def test_directive
@@ -278,20 +271,6 @@ END
     assert_equal("foo + bar {\n  a: b; }\n", render("foo\n  + bar\n    a: b"))
     assert_equal("foo + bar {\n  a: b; }\nfoo + baz {\n  c: d; }\n",
                  render("foo\n  +\n    bar\n      a: b\n    baz\n      c: d"))
-  end
-
-  def test_functions
-    assert_equal("a {\n  b: #80ff80; }\n", render("a\n  b = hsl(120, 100%, 75%)"))
-    assert_equal("a {\n  b: #81ff81; }\n", render("a\n  b = hsl(120, 100%, 75%) + #010001"))
-  end
-
-  def test_argument_error
-    assert_raise(Sass::SyntaxError) { render("a\n  b = hsl(1)") }
-  end
-
-  def test_inaccessible_functions
-    assert_equal("a {\n  b: send(to_s); }\n", render("a\n  b = send(to_s)"))
-    assert_equal("a {\n  b: public_instance_methods(); }\n", render("a\n  b = public_instance_methods()"))
   end
 
   private

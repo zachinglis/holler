@@ -23,11 +23,6 @@ module Haml
     # to produce the Haml document.
     attr :precompiled, true
 
-    # A string containing the indentation used for the Haml document.
-    # nil if the indentation is ambiguous
-    # (for example, for a single-level document).
-    attr :indentation, true
-
     # True if the format is XHTML
     def xhtml?
       not html?
@@ -73,27 +68,31 @@ module Haml
         :escape_html => false
       }
       @options.merge! options
+      @index = 0
 
       unless [:xhtml, :html4, :html5].include?(@options[:format])
         raise Haml::Error, "Invalid format #{@options[:format].inspect}"
       end
 
-      @template = (template.rstrip + "\n-#\n-#").split(/\r\n|\r|\n/)
-      @template_index = 0
+      @template = template.rstrip + "\n-#\n-#"
       @to_close_stack = []
       @output_tabs = 0
       @template_tabs = 0
-      @index = 0
+      @flat_spaces = -1
       @flat = false
       @newlines = 0
       @precompiled = ''
       @merged_text = ''
       @tab_change  = 0
 
+      if @template =~ /\A(\s*\n)*[ \t]+\S/
+        raise SyntaxError.new("Indenting at the beginning of the document is illegal.", ($1 || "").count("\n"))
+      end
+
       if @options[:filters]
         warn <<END
 DEPRECATION WARNING:
-The Haml :filters option is deprecated and will be removed in version 2.1.
+The Haml :filters option is deprecated and will be removed in version 2.2.
 Filters are now automatically registered.
 END
       end

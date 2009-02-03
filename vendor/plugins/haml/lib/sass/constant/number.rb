@@ -1,6 +1,6 @@
 require 'sass/constant/literal'
 
-module Sass::Constant
+module Sass::Constant  # :nodoc:
   class Number < Literal # :nodoc:
 
     attr_reader :unit
@@ -8,7 +8,7 @@ module Sass::Constant
     def parse(value)
       first, second, unit = value.scan(Literal::NUMBER)[0]
       @value = first.empty? ? second.to_i : "#{first}#{second}".to_f
-      @unit = unit unless unit.empty?
+      @unit = unit.empty? ? nil : unit
     end
 
     def plus(other)
@@ -27,10 +27,6 @@ module Sass::Constant
       else
         raise NoMethodError.new(nil, :minus)
       end
-    end
-
-    def unary_minus
-      Number.from_value(-value, unit)
     end
 
     def times(other)

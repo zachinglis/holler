@@ -2,10 +2,7 @@ require 'sass/constant/operation'
 require 'sass/constant/literal'
 
 module Sass
-  # This module contains various constant-script related functionality.
-  module Constant
-    # :stopdoc:
-
+  module Constant # :nodoc:
     # The character that begins a constant.
     CONSTANT_CHAR   = ?!
 
@@ -23,7 +20,6 @@ module Sass
     SYMBOLS = {
       ?( => :open,
       ?) => :close,
-      ?, => :comma,
       ?+ => :plus,
       ?- => :minus,
       ?* => :times,
@@ -37,15 +33,6 @@ module Sass
     # The regular expression used to parse constants
     MATCH = /^#{Regexp.escape(CONSTANT_CHAR.chr)}([^\s#{(SYMBOLS.keys + [ ?= ]).map {|c| Regexp.escape("#{c.chr}") }.join}]+)\s*((?:\|\|)?=)\s*(.+)/
 
-    # Order of operations hash
-    ORDER = {
-      :times => 1,
-      :div => 1,
-      :mod => 1,
-      :plus => 2,
-      :minus => 2,
-      :comma => 3,
-    }
     # First-order operations
     FIRST_ORDER = [:times, :div, :mod]
 
@@ -125,10 +112,10 @@ module Sass
                 to_return << :funcall
               end
 
-              # Time for a unary op!
-              if ![nil, :open, :close, :const].include?(symbol) && beginning_of_token
+              # Time for a unary minus!
+              if beginning_of_token && symbol == :minus
                 beginning_of_token = true
-                to_return << :unary << symbol
+                to_return << :neg
                 next
               end
 
@@ -161,8 +148,10 @@ module Sass
           case token
           when :open
             to_return << parenthesize(value)
-          when :unary
-            to_return << [value.shift, parenthesize(value, true)]
+          when :neg
+            # This is never actually reached, but we'll leave it in just in case.
+            raise Sass::SyntaxError.new("Unterminated unary minus.") if value.first.nil?
+            to_return << [:neg, parenthesize(value, true)]
           when :const
             raise Sass::SyntaxError.new("Unterminated constant.") if value.first.nil?
             raise Sass::SyntaxError.new("Invalid constant.") unless value.first.is_a?(::String)
@@ -197,18 +186,17 @@ module Sass
             Literal.parse(value)
           end
         when 2
-          case value[0]
-          when :const
+          if value[0] == :neg
+            Operation.new(Sass::Constant::Number.new('0'), operationalize(value[1], constants), :minus)
+          elsif value[0] == :const
             Literal.parse(get_constant(value[1], constants))
-          when ::Symbol
-            UnaryOperation.new(operationalize(value[1], constants), value[0])
           else
             raise SyntaxError.new("Constant arithmetic error")
           end
         when 3
           Operation.new(operationalize(value[0], constants), operationalize(value[2], constants), value[1])
         else
-          if ORDER[value[1]] && ORDER[value[3]] && ORDER[value[1]] > ORDER[value[3]]
+          if SECOND_ORDER.include?(value[1]) && FIRST_ORDER.include?(value[3])
             operationalize([value[0], value[1], operationalize(value[2..4], constants), *value[5..-1]], constants)
           else
             operationalize([operationalize(value[0..2], constants), *value[3..-1]], constants)
@@ -222,6 +210,5 @@ module Sass
         to_return
       end
     end
-    # :startdoc:
   end
 end

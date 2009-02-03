@@ -1,6 +1,6 @@
 require 'sass/constant/literal'
 
-module Sass::Constant
+module Sass::Constant # :nodoc:
   class Color < Literal # :nodoc:
 
     HTML4_COLORS = {
@@ -77,7 +77,6 @@ module Sass::Constant
       red, green, blue = @value.map { |num| num.to_s(16).rjust(2, '0') }
       "##{red}#{green}#{blue}"
     end
-    alias_method :inspect, :to_s
 
     protected
 
