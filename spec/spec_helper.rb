@@ -6,6 +6,8 @@ require 'spec'
 require 'spec/rails'
 
 Spec::Runner.configure do |config|
+  REST_AUTH_SITE_KEY = 'your_super_secret_site_key' unless defined?(REST_AUTH_SITE_KEY)
+  REST_AUTH_DIGEST_STRETCHES = 10 unless defined?(REST_AUTH_DIGEST_STRETCHES)  
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb

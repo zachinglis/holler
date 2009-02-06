@@ -25,8 +25,8 @@ quentin:
   login:                     quentin
   name:                      Quentin McExample
   email:                     quentin@example.com
-  salt:                      4a1703599c6edb19738028cb400f6405cc0d55ae # SHA1('0')
-  crypted_password:          556d9c4194a384f478d7fd1241622a3fe9431c5c # 'monkey'
+  salt:                      e7993d8c2a65c8abfde196b468d80f98bf8455f4 # SHA1('0')
+  crypted_password:          977affed9e33ece9c3cd1bf817c2e8117ebdf4d2 # 'monkey'
   created_at:                <%= 5.days.ago.to_s :db  %>
   remember_token_expires_at: <%= 1.days.from_now.to_s %>
   remember_token:            77de68daecd823babbb58edb1c8e14d7106e83bb
