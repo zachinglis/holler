@@ -81,6 +81,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def name
+    read_attribute(:name) or login
+  end
+  
 protected
   
   def make_activation_code

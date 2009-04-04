@@ -2,15 +2,12 @@
 .content
   - form_tag login_url do
     %p
-      %label{ :for => "login" } Login
-      %br/
+      = label_tag :login
       = text_field_tag 'login', @login
     %p
-      %label{ :for => "password" } Password
-      %br/
+      = label_tag :password
       = password_field_tag 'password', nil
     %p
-      %label{ :for => "remember_me"} Remember me:
+      = label_tag :remember_me, 'Remember me?', :class => 'for_checkbox'
       = check_box_tag 'remember_me', '1', @remember_me
-    %p= submit_tag 'Log in'
-  %p= link_to "Signup", signup_url
+    %p.submit= submit_tag 'Log in'

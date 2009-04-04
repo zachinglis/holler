@@ -1,23 +1,19 @@
 - @user.password = @user.password_confirmation = nil
 
-%h2 Sign up as a new user
+%h2 Sign Up
 = error_messages_for :user
 .content
   - form_for :user, :url => users_path do |make|
     %p
       = make.label :login
-      %br/
       = make.text_field :login
     %p
       = make.label :email
-      %br/
       = make.text_field :email
     %p
       = make.label :password
-      %br/
       = make.password_field :password
     %p
       = make.label :password_confirmation, "Confirm Password"
-      %br/
       = make.password_field :password_confirmation
-    %p= submit_tag 'Sign up'
+    %p.submit= submit_tag 'Sign up'

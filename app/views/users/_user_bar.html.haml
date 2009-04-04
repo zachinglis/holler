@@ -1,7 +1,7 @@
 #user_bar
+  %h1= link_to "Holler", root_url
   - if logged_in?
-    Logged in as 
-    = current_user.name
+    == Logged in as #{current_user}
     = "(#{link_to "log out", logout_path, { :title => "Log out" }})"
   - else
     = link_to "Log in",  login_path,  { :title => "Log in" }
