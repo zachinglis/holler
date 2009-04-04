@@ -123,7 +123,38 @@ label + input, label + select, label + textarea {
   bottom: 0;
   background: #E9E8E1;
   width: 30%;
-  padding: 10px;
+  padding: 6px;
+  padding-left: 20px;
+  padding-right: 20px;
   text-align: center; }
   .submit input, .submit button {
     width: 135px; }
+
+#errorExplanation {
+  position: relative;
+  font-size: 13px;
+  border: 1px solid #E9E8E1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  padding-top: 30px; }
+  #errorExplanation h2 {
+    background: #7A0D00;
+    color: #E9E8E1;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    padding: 6px;
+    padding-left: 20px;
+    padding-right: 20px; }
+  #errorExplanation p, #errorExplanation li {
+    margin-bottom: 5px; }
+  #errorExplanation p {
+    font-weight: bold;
+    padding-left: 3px;
+    padding-bottom: 5px; }
+  #errorExplanation li {
+    list-style-type: disc;
+    margin-left: 20px; }
