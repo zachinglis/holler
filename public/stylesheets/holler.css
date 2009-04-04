@@ -158,3 +158,17 @@ label + input, label + select, label + textarea {
   #errorExplanation li {
     list-style-type: disc;
     margin-left: 20px; }
+
+.flash {
+  margin: 5px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border: 3px solid #E9EC00;
+  background: #F8FFE0;
+  color: #000;
+  font-size: 13px; }
+  .flash strong {
+    text-transform: uppercase; }

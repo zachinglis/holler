@@ -16,4 +16,7 @@
     %p
       = make.label :password_confirmation, "Confirm Password"
       = make.password_field :password_confirmation
+    %p
+      = make.label :name
+      = make.text_field :name
     %p.submit= submit_tag 'Sign up'

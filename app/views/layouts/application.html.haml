@@ -5,6 +5,8 @@
     = javascript_include_tag :defaults
   %body
     #header= render :partial => "users/user_bar"
-    - if flash[:notice]
-      #flash=flash[:notice]
+    - flash.each do |key, message|
+      .flash{:class => key.to_s}
+        %strong== #{key.to_s.capitalize}:
+        = message
     #content= yield
