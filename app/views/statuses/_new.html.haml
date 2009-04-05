@@ -1,5 +1,7 @@
 #new_status
-  - form_for @status do |make|
-    = make.label :message, "What are you working on?"
-    = make.text_field :message
-    = make.submit "Update"
+  %h2 What are you working on?
+  .content
+    - form_for @status do |make|
+      = make.label :message
+      = make.text_area :message
+      = make.submit "Update"

@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
   
   def name
-    read_attribute(:name) or login
+    read_attribute(:name).blank? ? login : read_attribute(:name)
   end
   
 protected

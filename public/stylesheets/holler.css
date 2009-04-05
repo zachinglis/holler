@@ -28,21 +28,11 @@ html, body {
   padding: 6px;
   font-size: 13px; }
 
-#new_status {
-  background: #edecec;
-  position: fixed;
-  top: 30px;
-  right: 3px;
-  padding: 20px;
-  border: 2px solid #ccc;
-  font-size: 12px;
-  font-weight: bold; }
-
 #content {
   padding: 30px;
   padding-top: 20px; }
 
-h2 {
+h2, .title {
   color: #7A0D00;
   font-size: 30px;
   padding: 4px;
@@ -53,49 +43,43 @@ h3 {
   padding-bottom: 8px; }
 
 #users {
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-bottom: 20px; }
+  padding-top: 20px; }
+  #users li {
+    margin-top: 5px; }
+  #users .header {
+    display: block; }
+    #users .header .title {
+      position: relative;
+      top: 10px; }
 
 #statuses {
-  font-size: 13px;
-  margin: 5px;
-  margin-left: 65px;
-  margin-right: 65px; }
-  #statuses li {
-    position: relative;
-    margin-bottom: 10px;
-    padding-left: 120px;
-    font-weight: bold; }
-  #statuses small {
-    font-weight: normal;
-    position: absolute;
-    top: -3px;
-    left: 0;
-    text-align: center;
-    padding: 3px;
-    width: 100px;
-    margin-right: 20px;
-    background: #cecece;
-    color: #fff; }
-  #statuses strong {
-    display: block; }
-  #statuses .tags {
-    display: block;
-    color: #acacaa;
-    margin: 1px;
-    margin-top: 3px; }
+  clear: both;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 20px; }
+  #statuses .status {
+    padding: 10px;
+    background: #fff; }
+    #statuses .status small {
+      display: block;
+      padding-top: 5px;
+      font-size: 11px;
+      color: #A6A2A0; }
+
+.user.content {
+  margin-top: 10px; }
 
 .user {
   padding: 5px;
   clear: both; }
   .user .avatar {
     float: left;
+    background: #fff;
     border: 1px solid #e4e4e4;
     padding: 2px;
     margin-right: 10px; }
 
-.highlight {
+.highlight h3 {
   background: #fffee6; }
 
 .content {
@@ -103,7 +87,10 @@ h3 {
   margin-top: 20px;
   padding: 25px;
   padding-bottom: 45px;
-  border: 1px solid #E9E8E1; }
+  border: 1px solid #E9E8E1;
+  background: url(/images/content_bg.png) repeat-x; }
+  .content.plain {
+    background: #fff; }
 
 label {
   display: block;
@@ -172,3 +159,21 @@ label + input, label + select, label + textarea {
   font-size: 13px; }
   .flash strong {
     text-transform: uppercase; }
+
+#status_list {
+  float: left;
+  width: 700px;
+  margin-top: 0; }
+  #status_list > li {
+    padding-bottom: 20px; }
+
+div#new_status {
+  float: left;
+  width: 400px;
+  margin-left: 30px; }
+  div#new_status label {
+    display: none; }
+  div#new_status textarea {
+    margin-top: 5px;
+    height: 110px;
+    padding: 5px; }
